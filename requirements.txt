@@ -1,0 +1,13 @@
+flask
+flask-jsonrpc
+pymongo
+pika
+requests
+redis
+lxml
+newspaper3k
+sklearn
+pandas
+watchdog
+tensorflow==1.15.0
+
