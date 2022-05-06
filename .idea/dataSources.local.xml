@@ -14,5 +14,10 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="com.dbschema.MongoJdbcData Source -" uuid="d549df33-9531-4529-9b7b-6f531ce540ad">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MONGO" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

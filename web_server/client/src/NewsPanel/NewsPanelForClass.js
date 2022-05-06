@@ -4,21 +4,25 @@ import React from 'react';
 import Auth from '../Auth/Auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 import NewsCard from '../NewsCard/NewsCard';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 
-class NewsPanel extends React.Component {
+class NewsPanelForClass extends React.Component {
     constructor(props) {
+        
         super(props);
-
-        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false };
+        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, category: this.props.match.params.category};
         this.handleScroll = this.handleScroll.bind(this);
+        this.renderNews = this.renderNews.bind(this);
+        
     }
 
     componentDidMount() {
         if (Auth.isUserAuthenticated()) {
             this.loadMoreNews();
         }
+
         // 防抖
         this.loadMoreNews = _.debounce(this.loadMoreNews, 1000);
         window.addEventListener('scroll', this.handleScroll);
@@ -35,7 +39,7 @@ class NewsPanel extends React.Component {
         if (this.state.loadedAll === true) {
             return;
         }
-        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail() + `${this.category}/pageNum/` + this.state.pageNum
+        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail() + `${this.state.category}/pageNum/` + this.state.pageNum
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {
@@ -58,14 +62,19 @@ class NewsPanel extends React.Component {
     }
 
     renderNews() {
+        let category = this.state.category
+        console.log(this.state.news)
         var news_list = this.state.news.map(function (news) {
-            return (
+            console.log(news.class)
+            if (news.class == category)
+                return (
                 <a className='list-group-item' key={news.digest} href="#">
                     <NewsCard news={news} />
                 </a>
-            );
+                );
+            else 
+                return <div></div>
         });
-
         return (
             <div className="container-fluid">
                 <div className='list-group'>
@@ -103,5 +112,6 @@ class NewsPanel extends React.Component {
         }
     }
 }
+
 // export default NewsPanel;
-export default withRouter(NewsPanel)
+export default withRouter(NewsPanelForClass);

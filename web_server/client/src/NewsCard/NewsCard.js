@@ -32,6 +32,7 @@ class NewsCard extends React.Component {
 
     }
     render() {
+        
         return (
             <div>
                 <CopyToClipboard text={this.props.news.url}
@@ -51,7 +52,7 @@ class NewsCard extends React.Component {
                                     <h4>{this.props.news.title}</h4>
                                     <div className='news-description'>
                                         <p>{this.props.news.description}</p>
-                                        {/*<p>Fuck Fuck</p>*/}
+                                        <p>{this.props.news.class}</p>
                                         <div>
                                             {this.props.news.source.id != null && <div className='chip light-blue news-chip'>{this.props.news.source.name}</div>}
                                             {this.props.news.reason != null && <div className='chip light-green news-chip'>{this.props.news.reason}</div>}

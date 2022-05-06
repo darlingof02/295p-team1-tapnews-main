@@ -12,6 +12,16 @@ router.get('/userId/:userId/pageNum/:pageNum', function (req, res, next) {
     })
 });
 
+router.get('/userId/:userId/:category/pageNum/:pageNum', function (req, res, next) {
+    category = req.params['category'];
+    user_id = req.params['userId'];
+    page_num = req.params['pageNum'];
+    console.log("Fetching news..." + category);
+    rpc_client.getSpecialNewsSummariesForUser(user_id, category, page_num, function(response) {
+        res.json(response)
+    })
+});
+
 router.post('/userId/:userId/newsId/:newsId', function (req, res, next) {
     user_id = req.params['userId'];
     news_id = req.params['newsId'];

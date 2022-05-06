@@ -26,6 +26,8 @@ import NewsPanel from "../NewsPanel/NewsPanel";
 import Base from "../Base/Base";
 import LoginPage from "../Login/LoginPage";
 import SignUpPage from "../SignUp/SignUpPage";
+import NewsPanelForClass from '../NewsPanel/NewsPanelForClass';
+import PersonProfile from '../Person/PersonProfile';
 
 class App extends React.Component {
   render() {
@@ -35,6 +37,8 @@ class App extends React.Component {
           <Switch>
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
+            <Route path="/categories/:category" component={NewsPanelForClass} />
+            <Route path="/personal" component={PersonProfile} />
             <Route path="/" component={NewsPanel} />
           </Switch>
         </Base>
