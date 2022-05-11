@@ -28,8 +28,9 @@ function getSpecialNewsSummariesForUser(user_id, category, page_num, callback) {
         callback(response);
     })
 }
-function logNewsClickForUser(user_id, news_id) {
-    client.request('logNewsClickForUser', [user_id, news_id], function (err, error, response) {
+function like(user_id,news_id){
+    client.request('like', [user_id, news_id], function (err, error, response) {
+        console.log(user_id)
         if (err) {
             throw err;
         }
@@ -40,5 +41,6 @@ function logNewsClickForUser(user_id, news_id) {
 module.exports = {
     add: add,
     getNewsSummariesForUser: getNewsSummariesForUser,
-    logNewsClickForUser
+    logNewsClickForUser,
+    like
 }

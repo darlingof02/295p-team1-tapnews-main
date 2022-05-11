@@ -9,6 +9,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 class NewsCard extends React.Component {
     state = {
         value: '',
+        color:"00ff00",
         copied: false,
     };
     redirectToUrl(url) {
@@ -28,21 +29,33 @@ class NewsCard extends React.Component {
 
         fetch(request);
     }
-    share(){
-
+    like(){
+        let url = 'http://localhost:3000/news/like/' + Auth.getEmail()
+            + '/newsId/' + this.props.news.digest;
+        let request = new Request(encodeURI(url), {
+            method: 'POST',
+            headers: {
+                'Authorization': 'bearer ' + Auth.getToken(),
+            },
+            cache: "no-cache"
+        });
+        fetch(request);
     }
     render() {
-        
+        // if(this.props.likes.newsId == this.props.news.digest && this.props.likes.userId == this.props.users.email)
+        //     this.setState({color:"00ff00"})
+        // else
+        //     this.setState({color:"ff00ff"})
+
         return (
             <div>
                 <CopyToClipboard text={this.props.news.url}
                                  onCopy={() => this.setState({copied: true})}>
-                    <button onClick={()=>alert("Successfully copied to clip board")}>Copy to clipboard with button</button>
+                    <button onClick={()=>alert("Successfully copied to clip board")}>Share</button>
                 </CopyToClipboard>
+                <button color={this.state.color} onClick={()=>this.like()}>Like</button>
                 <div className="news-container" onClick={() => this.redirectToUrl(this.props.news.url)}>
-
                     <div className='row'>
-
                         <div className='col s4 fill'>
                             <img src={this.props.news.urlToImage} alt='news' />
                         </div>
@@ -52,7 +65,6 @@ class NewsCard extends React.Component {
                                     <h4>{this.props.news.title}</h4>
                                     <div className='news-description'>
                                         <p>{this.props.news.description}</p>
-                                        <p>{this.props.news.class}</p>
                                         <div>
                                             {this.props.news.source.id != null && <div className='chip light-blue news-chip'>{this.props.news.source.name}</div>}
                                             {this.props.news.reason != null && <div className='chip light-green news-chip'>{this.props.news.reason}</div>}
