@@ -2,15 +2,13 @@ import './NewsPanel.css';
 import _ from 'lodash';
 import React from 'react';
 import Auth from '../Auth/Auth';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import NewsCard from '../NewsCard/NewsCard';
 import { Link, withRouter } from 'react-router-dom';
 
 class NewsPanel extends React.Component {
-    constructor(props) {
-        super(props);
-
+    constructor() {
+        super();
         this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false };
         this.handleScroll = this.handleScroll.bind(this);
     }
@@ -35,7 +33,7 @@ class NewsPanel extends React.Component {
         if (this.state.loadedAll === true) {
             return;
         }
-        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail() + `${this.category}/pageNum/` + this.state.pageNum
+        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail() + '/pageNum/' + this.state.pageNum
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {
@@ -104,4 +102,4 @@ class NewsPanel extends React.Component {
     }
 }
 // export default NewsPanel;
-export default withRouter(NewsPanel)
+export default withRouter(NewsPanel);

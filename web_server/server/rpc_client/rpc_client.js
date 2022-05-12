@@ -36,9 +36,19 @@ function logNewsClickForUser(user_id, news_id) {
         console.log(response);
     })
 }
+function like(user_id,news_id){
+    client.request('like', [user_id, news_id], function (err, error, response) {
+        console.log(user_id)
+        if (err) {
+            throw err;
+        }
+        console.log(response);
+    })
+}
 
 module.exports = {
     add: add,
     getNewsSummariesForUser: getNewsSummariesForUser,
-    logNewsClickForUser
+    logNewsClickForUser,
+    like
 }

@@ -120,7 +120,6 @@ def getSpecialNewsSummariesForUser(user_id, category, page_num):
     return json.loads(dumps(special_sliced_news))
 
 
-
 def logNewsClickForUser(user_id, news_id):
     print("click")
     message = {'userId': user_id, 'newsId': news_id, 'timestamp': datetime.utcnow()}
@@ -135,5 +134,18 @@ def logNewsClickForUser(user_id, news_id):
                'timestamp': str(datetime.utcnow())}
     click_queue_client.sendMessage(message)
 
-def shareNewsForUser():
-    return
+def like(user_id, news_id):
+    print("like")
+
+    # Back up the log message to mongodb
+    db = mongodb_client.get_db()
+    col = db["likes"];
+    message = {'userId': user_id, 'newsId': news_id, 'timestamp': datetime.utcnow()}
+    col.insert_one(message)
+
+    # col.find({'email': {'$eq': user_id}}).update({"$pushAll": {"likes" : [news_id]}} )
+
+    '''# Send log task to machine learing service
+    message = {'userId': user_id, 'newsId': news_id,
+               'timestamp': str(datetime.utcnow())}
+    click_queue_client.sendMessage(message)'''

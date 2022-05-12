@@ -39,6 +39,15 @@ def logNewsClickForUser(user_id:str, news_id:str) -> None:
     """Log user news clicks"""
     print(user_id)
     return operations.logNewsClickForUser(user_id, news_id)
+@jsonrpc.method('like')
+def like(user_id:str, news_id:str) -> None:
+    """Log user news clicks"""
+    print(user_id)
+    return operations.like(user_id, news_id)
+@jsonrpc.method('getLikeForUser')
+def getLikeForUser(user_id: str, page_num: str) -> list:
+    """Get news summary from mongodb"""
+    return operations.getLikeForUser(user_id, page_num)
 if __name__ == '__main__':
     app.run(host=SERVER_HOST, port=SERVER_PORT, debug=True)
 
