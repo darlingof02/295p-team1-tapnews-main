@@ -9,9 +9,15 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 class NewsCard extends React.Component {
     state = {
         value: '',
-        color:"00ff00",
+        color:"black",
         copied: false,
     };
+    componentDidMount() {
+        if(this.findlike())
+            this.setState({color:"red"})
+        else
+            this.setState({color:"black"})
+    }
     redirectToUrl(url) {
         this.sendClickLog();
         window.open(url, '_blank');
@@ -41,11 +47,17 @@ class NewsCard extends React.Component {
         });
         fetch(request);
     }
+    findlike(){
+        for (let i = 0; i < this.props.likelist.length; i++) {
+            if (this.props.likelist[i]==this.props.news.digest){
+                return true
+            }
+        }
+        return false
+    }
     render() {
-        // if(this.props.likes.newsId == this.props.news.digest && this.props.likes.userId == this.props.users.email)
-        //     this.setState({color:"00ff00"})
-        // else
-        //     this.setState({color:"ff00ff"})
+        //console.log(this.props.likelist)
+
 
         return (
             <div>
@@ -53,7 +65,8 @@ class NewsCard extends React.Component {
                                  onCopy={() => this.setState({copied: true})}>
                     <button onClick={()=>alert("Successfully copied to clip board")}>Share</button>
                 </CopyToClipboard>
-                <button color={this.state.color} onClick={()=>this.like()}>Like</button>
+                {/*<button color={this.state.color} onClick={()=>this.like()}>Like</button>*/}
+                <button style={{color:this.state.color}} onClick={()=>this.like()}>Like</button>
                 <div className="news-container" onClick={() => this.redirectToUrl(this.props.news.url)}>
                     <div className='row'>
                         <div className='col s4 fill'>

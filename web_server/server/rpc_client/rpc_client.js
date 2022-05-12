@@ -45,10 +45,19 @@ function like(user_id,news_id){
         console.log(response);
     })
 }
-
+function getLikeForUser(user_id, page_num, callback) {
+    client.request('getLikeForUser', [user_id, page_num], function (err, error, response) {
+        if (err) {
+            throw err;
+        }
+        console.log(response);
+        callback(response);
+    })
+}
 module.exports = {
     add: add,
     getNewsSummariesForUser: getNewsSummariesForUser,
     logNewsClickForUser,
-    like
+    like,
+    getLikeForUser
 }

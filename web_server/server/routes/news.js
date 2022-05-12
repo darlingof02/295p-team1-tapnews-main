@@ -36,6 +36,15 @@ router.post('/like/:userId/newsId/:newsId', function (req, res, next) {
     rpc_client.like(user_id, news_id);
     res.status(200);
 });
+router.get('/getlike/userId/:userId/pageNum/:pageNum', function (req, res, next) {
+    console.log("Fetching like...");
+    user_id = req.params['userId'];
+    page_num = req.params['pageNum'];
+
+    rpc_client.getLikeForUser(user_id, page_num, function(response) {
+        res.json(response)
+    })
+});
 /* GET home page. */
 // router.get('/', function (req, res, next) {
 
