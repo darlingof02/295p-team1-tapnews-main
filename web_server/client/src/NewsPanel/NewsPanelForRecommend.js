@@ -12,7 +12,7 @@ class NewsPanelForRecommend extends React.Component {
     constructor(props) {
         
         super(props);
-        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false};
+        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, likelist:[]};
         this.handleScroll = this.handleScroll.bind(this);
         this.renderNews = this.renderNews.bind(this);
         
@@ -24,7 +24,8 @@ class NewsPanelForRecommend extends React.Component {
         }
 
         // 防抖
-        this.loadMoreNews = _.debounce(this.loadLikedNews, 1000);
+        this.loadLike();
+        this.loadLikedNews = _.debounce(this.loadLikedNews, 1000);
         window.addEventListener('scroll', this.handleScroll);
     }
     handleScroll() {
@@ -32,6 +33,7 @@ class NewsPanelForRecommend extends React.Component {
         if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 50)) {
             // 滚动到了最底部。
             console.log('Loading more news');
+            this.loadLike()
             this.loadLikedNews();
         }
     }
@@ -39,7 +41,7 @@ class NewsPanelForRecommend extends React.Component {
         if (this.state.loadedAll === true) {
             return;
         }
-        let url = 'http://localhost:3000/news/recommend/userId/' + Auth.getEmail() + `${this.state.category}/pageNum/` + this.state.pageNum
+        let url = 'http://localhost:3000/news/recommend/userId/' + Auth.getEmail() + `/pageNum/` + this.state.pageNum
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {
@@ -58,6 +60,33 @@ class NewsPanelForRecommend extends React.Component {
                     news: this.state.news ? this.state.news.concat(news) : news,
                     pageNum: this.state.pageNum + 1
                 });
+            });
+    }
+    loadLike(e) {
+        // if (this.state.loadedAll === true) {
+        //     return;
+        // }
+        let url = 'http://localhost:3000/news/getlike/userId/' + Auth.getEmail() + '/pageNum/' + this.state.pageNum
+        let request = new Request(encodeURI(url), {
+            method: 'GET',
+            headers: {
+                'Authorization': 'bearer ' + Auth.getToken(),
+            },
+            cache: 'no-cache',
+        });
+
+        fetch(request)
+            .then((res) => res.json())
+            .then((list) => {
+                //console.log(list)
+                this.setState({ likelist:list});
+                // if (!news || news.length === 0) {
+                //     this.setState({ loadedAll: true });
+                // }
+                // this.setState({
+                //     news: this.state.news ? this.state.news.concat(news) : news,
+                //     pageNum: this.state.pageNum + 1
+                // });
             });
     }
     // loadMoreNews(e) {
@@ -87,18 +116,17 @@ class NewsPanelForRecommend extends React.Component {
     // }
 
     renderNews() {
-        let category = this.state.category
+
+        var temp=this.state.likelist
         console.log(this.state.news)
         var news_list = this.state.news.map(function (news) {
             console.log(news.class)
-            if (news.class == category)
-                return (
+            return (
                 <a className='list-group-item' key={news.digest} href="#">
-                    <NewsCard news={news} />
+                    <NewsCard news={news} likelist={temp}/>
                 </a>
-                );
-            else 
-                return <div></div>
+            );
+            
         });
         return (
             <div className="container-fluid">

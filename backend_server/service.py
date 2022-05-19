@@ -61,6 +61,10 @@ def updateUserInfo(user_id: str, user_info:str, attr: str) -> None:
 def getLikedNewsSummariesForUser(user_id: str, page_num: str) -> list:
     """Get news summary from mongodb"""
     return operations.getLikedNewsSummariesForUser(user_id, page_num)
+@jsonrpc.method('getRecommendNewsSummariesForUser')
+def getRecommendNewsSummariesForUser(user_id: str, page_num: str) -> list:
+    """Get news summary from mongodb"""
+    return operations.getRecommendNewsSummariesForUser(user_id, page_num)
 if __name__ == '__main__':
     app.run(host=SERVER_HOST, port=SERVER_PORT, debug=True)
 

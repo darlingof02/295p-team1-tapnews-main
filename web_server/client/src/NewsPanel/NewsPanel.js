@@ -9,7 +9,7 @@ import { Link, withRouter } from 'react-router-dom';
 class NewsPanel extends React.Component {
     constructor() {
         super();
-        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, likelist:null};
+        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, likelist:[]};
         this.handleScroll = this.handleScroll.bind(this);
         this.renderNews = this.renderNews.bind(this);
     }

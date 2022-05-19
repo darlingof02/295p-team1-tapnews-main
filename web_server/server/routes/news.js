@@ -23,8 +23,8 @@ router.get('/liked/userId/:userId/pageNum/:pageNum', function (req, res, next) {
     
 })
 
-router.get('/recommend/userId/:userId', function (req, res, next) {
-    console.log("Fecting liked news");
+router.get('/recommend/userId/:userId/pageNum/:pageNum', function (req, res, next) {
+    console.log("Fetching liked news");
     user_id = req.params['userId'];
     page_num = req.params['pageNum'];
     

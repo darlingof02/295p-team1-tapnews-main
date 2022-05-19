@@ -19,15 +19,15 @@ class CloudAMQPClient:
 
     # get a message
     def getMessage(self):
-        print(self.queue_name)
+        # print(self.queue_name)
         method_frame, header_frame, body = self.channel.basic_get(self.queue_name)
-        print(method_frame,header_frame,body)
+        # print(method_frame,header_frame,body)
         if method_frame is not None:
             print("[O] Received message from %s: %s" % (self.queue_name, body))
             self.channel.basic_ack(method_frame.delivery_tag)
             return json.loads(body)
         else:
-            print("No message returned")
+            # print("No message returned")
             return None
     
     # sleep

@@ -35,6 +35,33 @@ class NewsPanelForLike extends React.Component {
             this.loadLikedNews();
         }
     }
+    loadLike(e) {
+        // if (this.state.loadedAll === true) {
+        //     return;
+        // }
+        let url = 'http://localhost:3000/news/getlike/userId/' + Auth.getEmail() + '/pageNum/' + this.state.pageNum
+        let request = new Request(encodeURI(url), {
+            method: 'GET',
+            headers: {
+                'Authorization': 'bearer ' + Auth.getToken(),
+            },
+            cache: 'no-cache',
+        });
+
+        fetch(request)
+            .then((res) => res.json())
+            .then((list) => {
+                //console.log(list)
+                this.setState({ likelist:list});
+                // if (!news || news.length === 0) {
+                //     this.setState({ loadedAll: true });
+                // }
+                // this.setState({
+                //     news: this.state.news ? this.state.news.concat(news) : news,
+                //     pageNum: this.state.pageNum + 1
+                // });
+            });
+    }
     loadLikedNews(e) {
         console.log("did loadlike")
         if (this.state.loadedAll === true) {

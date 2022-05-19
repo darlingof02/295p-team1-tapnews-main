@@ -22,7 +22,7 @@ ALPHA = 0.1
 
 SLEEP_TIME_IN_SECONDS = 1
 
-LOG_CLICK_TASK_QUEUE_URL = 'amqps://ejghaimx:q87sIhf2vRU55dEUNgMYFy7cXlmDYFE1@snake.rmq2.cloudamqp.com/ejghaimx'
+LOG_CLICK_TASK_QUEUE_URL = 'amqps://nipppnnn:XVJKPT64ItvKru7S4se-C0-O4n8UqP9F@beaver.rmq.cloudamqp.com/nipppnnn'
 LOG_CLICK_TASK_QUEUE_NAME = "log-click-task-queue"
 
 PREFERENCE_MODEL_TABLE_NAME = "user_preference_model"
