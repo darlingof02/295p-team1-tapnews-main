@@ -1,3 +1,4 @@
+const { log } = require('har-validator');
 var jayson = require('jayson');
 
 var client = jayson.client.http('http://localhost:4040/api');
@@ -65,6 +66,7 @@ function like(user_id,news_id){
         console.log(response);
     })
 }
+
 function getUserInfo(user_id, callback) {
     // console.log("hello world")
     client.request('getUserInfo', [user_id], function (err, error, response) {
@@ -85,6 +87,16 @@ function updateUserInfo(user_id, user_info, attr) {
 }
 
 
+function getLikeForUser(user_id, page_num, callback) {
+    client.request('getLikeForUser', [user_id, page_num], function (err, error, response) {
+        if (err) {
+            throw err;
+        }
+        console.log(response);
+        callback(response);
+    })
+}
+
 module.exports = {
     add: add,
     getNewsSummariesForUser: getNewsSummariesForUser,
@@ -94,4 +106,5 @@ module.exports = {
     updateUserInfo,
     getLikedNewsSummariesForUser,
     getRecommendNewsSummariesForUser,
+    getLikeForUser,
 }

@@ -65,6 +65,7 @@ router.post('/like/:userId/newsId/:newsId', function (req, res, next) {
     rpc_client.like(user_id, news_id);
     res.status(200);
 });
+<<<<<<< HEAD
 router.post('/update/:userId', function (req, res, next) {
     user_id = req.params['userId']
     console.log("hello")
@@ -72,6 +73,16 @@ router.post('/update/:userId', function (req, res, next) {
     console.log("world")
     rpc_client.updateUserInfo(user_id, req.body['user_info'], req.body['attr'])
     res.status(200);
+=======
+router.get('/getlike/userId/:userId/pageNum/:pageNum', function (req, res, next) {
+    console.log("Fetching like...");
+    user_id = req.params['userId'];
+    page_num = req.params['pageNum'];
+
+    rpc_client.getLikeForUser(user_id, page_num, function(response) {
+        res.json(response)
+    })
+>>>>>>> 27470fd6e887468af45cf2383a5181d6f2f2d06a
 });
 /* GET home page. */
 // router.get('/', function (req, res, next) {

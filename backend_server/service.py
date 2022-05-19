@@ -48,6 +48,7 @@ def like(user_id:str, news_id:str) -> None:
 def getLikeForUser(user_id: str, page_num: str) -> list:
     """Get news summary from mongodb"""
     return operations.getLikeForUser(user_id, page_num)
+<<<<<<< HEAD
 @jsonrpc.method('getUserInfo')
 def getUserInfo(user_id: str) -> list:
     user_info = operations.getUserInfo(user_id)
@@ -57,6 +58,12 @@ def getUserInfo(user_id: str) -> list:
 def updateUserInfo(user_id: str, user_info:str, attr: str) -> None:
     operations.updateUserInfo(user_id, user_info, attr)
     return None
+=======
+@jsonrpc.method('getLikedNewsSummariesForUser')
+def getLikedNewsSummariesForUser(user_id: str, page_num: str) -> list:
+    """Get news summary from mongodb"""
+    return operations.getLikedNewsSummariesForUser(user_id, page_num)
+>>>>>>> 27470fd6e887468af45cf2383a5181d6f2f2d06a
 if __name__ == '__main__':
     app.run(host=SERVER_HOST, port=SERVER_PORT, debug=True)
 

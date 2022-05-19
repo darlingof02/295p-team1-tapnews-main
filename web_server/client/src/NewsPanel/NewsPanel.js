@@ -9,8 +9,9 @@ import { Link, withRouter } from 'react-router-dom';
 class NewsPanel extends React.Component {
     constructor() {
         super();
-        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false };
+        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, likelist:null};
         this.handleScroll = this.handleScroll.bind(this);
+        this.renderNews = this.renderNews.bind(this);
     }
 
     componentDidMount() {
@@ -18,6 +19,7 @@ class NewsPanel extends React.Component {
             this.loadMoreNews();
         }
         // 防抖
+        this.loadLike();
         this.loadMoreNews = _.debounce(this.loadMoreNews, 1000);
         window.addEventListener('scroll', this.handleScroll);
     }
@@ -26,6 +28,7 @@ class NewsPanel extends React.Component {
         if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 50)) {
             // 滚动到了最底部。
             console.log('Loading more news');
+
             this.loadMoreNews();
         }
     }
@@ -45,6 +48,7 @@ class NewsPanel extends React.Component {
         fetch(request)
             .then((res) => res.json())
             .then((news) => {
+                console.log(news)
                 if (!news || news.length === 0) {
                     this.setState({ loadedAll: true });
                 }
@@ -54,12 +58,40 @@ class NewsPanel extends React.Component {
                 });
             });
     }
+    loadLike(e) {
+        // if (this.state.loadedAll === true) {
+        //     return;
+        // }
+        let url = 'http://localhost:3000/news/getlike/userId/' + Auth.getEmail() + '/pageNum/' + this.state.pageNum
+        let request = new Request(encodeURI(url), {
+            method: 'GET',
+            headers: {
+                'Authorization': 'bearer ' + Auth.getToken(),
+            },
+            cache: 'no-cache',
+        });
 
+        fetch(request)
+            .then((res) => res.json())
+            .then((list) => {
+                //console.log(list)
+                this.setState({ likelist:list});
+                // if (!news || news.length === 0) {
+                //     this.setState({ loadedAll: true });
+                // }
+                // this.setState({
+                //     news: this.state.news ? this.state.news.concat(news) : news,
+                //     pageNum: this.state.pageNum + 1
+                // });
+            });
+    }
     renderNews() {
+        //console.log(this.state.likelist)
+        var temp=this.state.likelist
         var news_list = this.state.news.map(function (news) {
             return (
                 <a className='list-group-item' key={news.digest} href="#">
-                    <NewsCard news={news} />
+                    <NewsCard news={news} likelist={temp} />
                 </a>
             );
         });
