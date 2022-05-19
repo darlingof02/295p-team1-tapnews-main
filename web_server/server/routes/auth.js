@@ -2,6 +2,9 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const validator = require('validator');
+
+
+
 router.post('/signup', (req, res, next) => {
     console.log(req.body);
     const validationResult = validateSignupForm(req.body);

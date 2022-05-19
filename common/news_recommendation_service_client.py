@@ -4,7 +4,9 @@ import json
 def getPreferenceForUser(userId):
     r = requests.post('http://localhost:5050/api', json={'id': '1', 'jsonrpc': '2.0', 'method': 'getPreferenceForUser', 'params':[userId]})
     print(r.text)
+    print(r)
     preference = json.loads(r.text)['result']
+    print("preference")
     print("Preference list: {}".format(str(preference)))
     return preference
-getPreferenceForUser('test')
+getPreferenceForUser('test@email.test')

@@ -25,6 +25,7 @@ jsonrpc = JSONRPC(app, '/api', enable_web_browsable_api=True)
 def getPreferenceForUser(user_id:str)->list:
     db = mongodb_client.get_db()
     model = db[PREFERENCE_MODEL_TABLE_NAME].find_one({'userId':user_id})
+    print("getPreferenceForUser")
     print(model)
     if model is None:
         return []

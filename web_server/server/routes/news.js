@@ -12,12 +12,41 @@ router.get('/userId/:userId/pageNum/:pageNum', function (req, res, next) {
     })
 });
 
+router.get('/liked/userId/:userId', function (req, res, next) {
+    console.log("Fecting liked news");
+    user_id = req.params['userId'];
+    page_num = req.params['pageNum'];
+    
+    rpc_client.getLikedNewsSummariesForUser(user_id, page_num, function(response) {
+        res.json(response)
+    })
+    
+})
+
+router.get('/recommend/userId/:userId', function (req, res, next) {
+    console.log("Fecting liked news");
+    user_id = req.params['userId'];
+    page_num = req.params['pageNum'];
+    
+    rpc_client.getRecommendNewsSummariesForUser(user_id, page_num, function(response) {
+        res.json(response)
+    })
+})
+
 router.get('/userId/:userId/:category/pageNum/:pageNum', function (req, res, next) {
     category = req.params['category'];
     user_id = req.params['userId'];
     page_num = req.params['pageNum'];
     console.log("Fetching news..." + category);
     rpc_client.getSpecialNewsSummariesForUser(user_id, category, page_num, function(response) {
+        res.json(response)
+    })
+});
+
+router.get('/userId/:userId', function(req, res, next) {
+    user_id = req.params['userId'];
+    console.log("routesnews")
+    rpc_client.getUserInfo(user_id, function(response) {
         res.json(response)
     })
 });
@@ -34,6 +63,14 @@ router.post('/like/:userId/newsId/:newsId', function (req, res, next) {
     news_id = req.params['newsId'];
 
     rpc_client.like(user_id, news_id);
+    res.status(200);
+});
+router.post('/update/:userId', function (req, res, next) {
+    user_id = req.params['userId']
+    console.log("hello")
+    console.log(req.body)
+    console.log("world")
+    rpc_client.updateUserInfo(user_id, req.body['user_info'], req.body['attr'])
     res.status(200);
 });
 /* GET home page. */

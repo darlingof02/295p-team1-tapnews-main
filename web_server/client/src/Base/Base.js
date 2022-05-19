@@ -1,6 +1,7 @@
 import React from 'react';
 import Auth from '../Auth/Auth';
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import './Base.css';
 import { Link, withRouter } from 'react-router-dom';
@@ -34,6 +35,7 @@ const Base = function ({ children, history }) {
                         <Nav.Link href="/home">Home</Nav.Link>
                         <Nav.Link href="/personal">Profile</Nav.Link>
                         <Nav.Link href="/favorites">Likes</Nav.Link>
+                        <Nav.Link href="/recommend">Recommend</Nav.Link>
                     </Nav>) : null
                 }
                 {Auth.isUserAuthenticated() ? (
@@ -74,9 +76,9 @@ const Base = function ({ children, history }) {
             </Container>
         </Navbar>
 
-            <nav className="nav-bar  light-blue darken-4">
+            {/* <nav className="nav-bar light-blue darken-4">
                 <div className="nav-wrapper">
-                    {/* <a href="/" className="brand-logo">&nbsp;&nbsp;News Feed</a> */}
+
                     <Link to="/" className="brand-logo">&nbsp;&nbsp;News Feed</Link>
 
                     <ul id="nav-mobile" className="right">
@@ -93,8 +95,7 @@ const Base = function ({ children, history }) {
                             </div>)
                             :
                             (<div>
-                                {/* <li><a href="/login">Log in</a></li>
-                                <li><a href="/signup">Sign up</a></li> */}
+                                
                                 <li><Link to="/login">Log in</Link></li>
                                 <li><Link to="/signup">Sign up</Link></li>
                             </div>)
@@ -102,7 +103,7 @@ const Base = function ({ children, history }) {
                     </ul>
                 </div>
             </nav>
-            <br />
+            <br /> */}
             {children}
         </div>
     )

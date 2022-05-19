@@ -18,6 +18,7 @@ REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 
 NEWS_TABLE_NAME = 'news'
+USERS_TABLE_NAME = 'users'
 CLICK_LOGS_TABLE_NAME = 'click_logs'
 
 NEWS_LIMIT = 100
@@ -30,6 +31,19 @@ LOG_CLICK_TASK_QUEUE_NAME = "log-click-task-queue"
 redis_client = redis.StrictRedis(REDIS_HOST, REDIS_PORT, db=0)
 click_queue_client = CloudAMQPClient(LOG_CLICK_TASK_QUEUE_URL, LOG_CLICK_TASK_QUEUE_NAME)
 
+
+def getUserInfo(user_id):
+    db = mongodb_client.get_db()
+    user_info = list(db[USERS_TABLE_NAME].find({'email': {'$eq': user_id}}))
+    print(user_info)
+    print("operations")
+    return json.loads(dumps(user_info))
+
+
+def updateUserInfo(user_id, user_info, attr):
+    db = mongodb_client.get_db()
+    db[USERS_TABLE_NAME].update_one({'email': user_id}, { "$set": { attr: user_info } })
+    return
 
 def getNewsSummariesForUser(user_id, page_num):
     page_num = int(page_num)

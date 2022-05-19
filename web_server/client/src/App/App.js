@@ -28,6 +28,8 @@ import LoginPage from "../Login/LoginPage";
 import SignUpPage from "../SignUp/SignUpPage";
 import NewsPanelForClass from '../NewsPanel/NewsPanelForClass';
 import PersonProfile from '../Person/PersonProfile';
+import NewsPanelForLike from '../NewsPanel/NewsPanelForLike';
+import NewsPanelForRecommend from '../NewsPanel/NewsPanelForRecommend';
 
 class App extends React.Component {
   render() {
@@ -38,11 +40,12 @@ class App extends React.Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
             <Route path="/categories/:category" component={NewsPanelForClass} />
+            <Route path="/favorites" component={NewsPanelForLike} />
+            <Route path="/recommend" component={NewsPanelForRecommend} />
             <Route path="/personal" component={PersonProfile} />
             <Route path="/" component={NewsPanel} />
           </Switch>
         </Base>
-
       </div>
     )
   }

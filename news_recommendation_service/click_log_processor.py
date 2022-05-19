@@ -84,6 +84,7 @@ def run():
             msg = click_queue_client.getMessage()
             if msg is not None:
                 try:
+                    print("handle_message")
                     handle_message(msg)
                 except Exception as e:
                     print(e)
