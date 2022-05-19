@@ -72,6 +72,13 @@ def getNewsSummariesForUser(user_id, page_num):
             news['reason'] = 'Recommend'
         if news['publishedAt'].date() == datetime.today().date():
             news['time'] = 'today'
+    redditNews=[]
+    for news in sliced_news:
+        if (news['source']['name']=="Reddit /r/all"):
+            redditNews.append(news)
+            #sliced_news.remove(news)
+    for news in redditNews:
+        sliced_news.remove(news)
     return json.loads(dumps(sliced_news))
 
 def getSpecialNewsSummariesForUser(user_id, category, page_num):
@@ -150,13 +157,13 @@ def like(user_id, news_id):
             col.update_one({"userId": user_id},{"$set":{'newsId':newlist}})
     else:
         col.insert_one(message)
-    '''if col.find({'userID':user_id}).count()>0:
+    if col.find({'userID':user_id}).count()>0:
         print(col['newsId'])
     else:
-        col.insert_one(message)'''
+        col.insert_one(message)
+        '''
 
-    # col.find({'email': {'$eq': user_id}}).update({"$pushAll": {"likes" : [news_id]}} )
-
+    # col.find({'email': {'$eq': user_id}}).update({"$pushAll": {"likes" : [news_id]}} )'''
 def getLikeForUser(user_id, page_num):
     sliced_likes = []
     db = mongodb_client.get_db()
@@ -166,7 +173,7 @@ def getLikeForUser(user_id, page_num):
         sliced_likes=x['newsId']
     return json.loads(dumps(sliced_likes))
 
-    '''# Send log task to machine learing service
+    # Send log task to machine learing service
     message = {'userId': user_id, 'newsId': news_id,
                'timestamp': str(datetime.utcnow())}
-    click_queue_client.sendMessage(message)'''
+    click_queue_client.sendMessage(message)
