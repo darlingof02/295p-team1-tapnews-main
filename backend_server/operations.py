@@ -194,6 +194,7 @@ def getLikeForUser(user_id, page_num):
     click_queue_client.sendMessage(message)'''
 
 def getLikedNewsSummariesForUser(user_id, page_num):
+    print(user_id)
     page_num = int(page_num)
     if page_num <= 0:
         raise ValueError('page_num should be a positive integer.')
@@ -209,7 +210,18 @@ def getLikedNewsSummariesForUser(user_id, page_num):
         # If end_index is out of range, return all remaining news
         sliced_news_digests = news_digests[begin_index: end_index]
         db = mongodb_client.get_db()
+        col = db["likes"];
+        entry=col.find({ "userId": user_id})
+        #print(entry[0])
+        for x in entry:
+            sliced_likes=x['newsId']
+
         sliced_news = list(db[NEWS_TABLE_NAME].find({'digest': {'$in': sliced_news_digests}}))
+        likednews=[]
+        for news in sliced_news:
+
+            if news['digest'] in sliced_likes:
+                likednews.append(news)
     else:
         db = mongodb_client.get_db()
 
@@ -249,4 +261,5 @@ def getLikedNewsSummariesForUser(user_id, page_num):
             #sliced_news.remove(news)
     for news in redditNews:
         sliced_news.remove(news)
+    print(likednews)
     return json.loads(dumps(likednews))

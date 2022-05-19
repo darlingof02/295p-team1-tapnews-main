@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
 import {Modal, Button, Form} from 'react-bootstrap'
-import { Redirect } from 'request/lib/redirect';
 import Auth from '../Auth/Auth';
 
 

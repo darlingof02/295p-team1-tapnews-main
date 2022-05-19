@@ -12,7 +12,7 @@ class NewsPanelForClass extends React.Component {
     constructor(props) {
         
         super(props);
-        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, category: this.props.match.params.category};
+        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, category: this.props.match.params.category, likelist:[]};
         this.handleScroll = this.handleScroll.bind(this);
         this.renderNews = this.renderNews.bind(this);
         
@@ -24,7 +24,9 @@ class NewsPanelForClass extends React.Component {
         }
 
         // 防抖
+
         this.loadMoreNews = _.debounce(this.loadMoreNews, 1000);
+        this.loadLikedNews()
         window.addEventListener('scroll', this.handleScroll);
     }
     handleScroll() {
@@ -60,19 +62,48 @@ class NewsPanelForClass extends React.Component {
                 });
             });
     }
+    loadLikedNews(e) {
+        console.log("did loadlike")
+        if (this.state.loadedAll === true) {
+            return;
+        }
+        console.log("liked User: " + Auth.getEmail())
+        let url = 'http://localhost:3000/news/liked/userId/' + Auth.getEmail() + `/pageNum/` + this.state.pageNum
+        let request = new Request(encodeURI(url), {
+            method: 'GET',
+            headers: {
+                'Authorization': 'bearer ' + Auth.getToken(),
+            },
+            cache: 'no-cache',
+        });
+
+        fetch(request)
+            .then((res) => res.json())
+            .then((news) => {
+                if (!news || news.length === 0) {
+                    this.setState({ loadedAll: true });
+                }
+
+                this.setState({
+                    news: this.state.news ? this.state.news.concat(news) : news,
+                    pageNum: this.state.pageNum + 1
+                });
+            });
+    }
 
     renderNews() {
         let category = this.state.category
         console.log(this.state.news)
+        var temp=this.state.likelist
         var news_list = this.state.news.map(function (news) {
             console.log(news.class)
             if (news.class == category)
                 return (
                 <a className='list-group-item' key={news.digest} href="#">
-                    <NewsCard news={news} />
+                    <NewsCard news={news} likelist={temp}/>
                 </a>
                 );
-            else 
+            else
                 return <div></div>
         });
         return (
