@@ -169,6 +169,8 @@ def like(user_id, news_id):
         for x in temp:
             if news_id not in x['newsId']:
                 newlist=x['newsId']+[news_id]
+            else:
+                newlist=x['newsId']
             col.update_one({"userId": user_id},{"$set":{'newsId':newlist}})
     else:
         col.insert_one(message)
