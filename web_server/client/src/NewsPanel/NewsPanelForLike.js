@@ -12,9 +12,10 @@ class NewsPanelForLike extends React.Component {
     constructor(props) {
         
         super(props);
-        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false};
+        this.state = { news: null, pageNum: 1, totalPages: 1, loadedAll: false, likelist:[]};
         this.handleScroll = this.handleScroll.bind(this);
         this.renderNews = this.renderNews.bind(this);
+
         
     }
 
@@ -25,6 +26,7 @@ class NewsPanelForLike extends React.Component {
         console.log("did redirect")
         // 防抖
         this.loadMoreNews = _.debounce(this.loadLikedNews, 1000);
+        this.loadLike()
         window.addEventListener('scroll', this.handleScroll);
     }
     handleScroll() {
@@ -67,7 +69,8 @@ class NewsPanelForLike extends React.Component {
         if (this.state.loadedAll === true) {
             return;
         }
-        let url = 'http://localhost:3000/news/liked/userId/' + Auth.getEmail() + `${this.state.category}/pageNum/` + this.state.pageNum
+        console.log("liked User: " + Auth.getEmail())
+        let url = 'http://localhost:3000/news/liked/userId/' + Auth.getEmail() + `/pageNum/` + this.state.pageNum
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {
@@ -82,6 +85,7 @@ class NewsPanelForLike extends React.Component {
                 if (!news || news.length === 0) {
                     this.setState({ loadedAll: true });
                 }
+
                 this.setState({
                     news: this.state.news ? this.state.news.concat(news) : news,
                     pageNum: this.state.pageNum + 1
@@ -115,18 +119,19 @@ class NewsPanelForLike extends React.Component {
     // }
 
     renderNews() {
-        let category = this.state.category
+        console.log(" ----- ")
         console.log(this.state.news)
+        console.log(" ----- ")
+        var temp=this.state.likelist
         var news_list = this.state.news.map(function (news) {
             console.log(news.class)
-            if (news.class == category)
+
                 return (
                 <a className='list-group-item' key={news.digest} href="#">
-                    <NewsCard news={news} />
+                    <NewsCard news={news} likelist={temp}/>
                 </a>
                 );
-            else 
-                return <div></div>
+
         });
         return (
             <div className="container-fluid">

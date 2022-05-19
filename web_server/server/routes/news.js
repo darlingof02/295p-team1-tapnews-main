@@ -13,10 +13,9 @@ router.get('/userId/:userId/pageNum/:pageNum', function (req, res, next) {
 });
 
 router.get('/liked/userId/:userId/pageNum/:pageNum', function (req, res, next) {
-    console.log("Fecting liked news");
     user_id = req.params['userId'];
     page_num = req.params['pageNum'];
-    
+    console.log("Fetching like news for" + user_id)
     rpc_client.getLikedNewsSummariesForUser(user_id, page_num, function(response) {
         res.json(response)
     })

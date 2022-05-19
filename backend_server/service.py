@@ -60,6 +60,7 @@ def updateUserInfo(user_id: str, user_info:str, attr: str) -> None:
 @jsonrpc.method('getLikedNewsSummariesForUser')
 def getLikedNewsSummariesForUser(user_id: str, page_num: str) -> list:
     """Get news summary from mongodb"""
+    print("fuck",user_id)
     return operations.getLikedNewsSummariesForUser(user_id, page_num)
 @jsonrpc.method('getRecommendNewsSummariesForUser')
 def getRecommendNewsSummariesForUser(user_id: str, page_num: str) -> list:
