@@ -22,7 +22,7 @@ class NewsPanelForLike extends React.Component {
         if (Auth.isUserAuthenticated()) {
             this.loadLikedNews();
         }
-
+        console.log("did redirect")
         // 防抖
         this.loadMoreNews = _.debounce(this.loadLikedNews, 1000);
         window.addEventListener('scroll', this.handleScroll);
@@ -36,6 +36,7 @@ class NewsPanelForLike extends React.Component {
         }
     }
     loadLikedNews(e) {
+        console.log("did loadlike")
         if (this.state.loadedAll === true) {
             return;
         }
