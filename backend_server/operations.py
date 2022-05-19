@@ -153,11 +153,12 @@ def like(user_id, news_id):
     if len(list(entry))>0:
         temp=col.find({ "userId": user_id})
         for x in temp:
-            newlist=x['newsId']+[news_id]
+            if news_id not in x['newsId']:
+                newlist=x['newsId']+[news_id]
             col.update_one({"userId": user_id},{"$set":{'newsId':newlist}})
     else:
         col.insert_one(message)
-    if col.find({'userID':user_id}).count()>0:
+    '''if col.find({'userID':user_id}).count()>0:
         print(col['newsId'])
     else:
         col.insert_one(message)
