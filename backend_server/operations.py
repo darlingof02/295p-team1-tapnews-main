@@ -25,7 +25,7 @@ NEWS_LIMIT = 100
 NEWS_LIST_BATCH_SIZE = 10
 USER_NEWS_TIMEOUT_IN_SECONDS = 600
 
-LOG_CLICK_TASK_QUEUE_URL = 'amqps://nipppnnn:XVJKPT64ItvKru7S4se-C0-O4n8UqP9F@beaver.rmq.cloudamqp.com/nipppnnn'
+LOG_CLICK_TASK_QUEUE_URL = 'amqps://ejghaimx:q87sIhf2vRU55dEUNgMYFy7cXlmDYFE1@snake.rmq2.cloudamqp.com/ejghaimx'
 LOG_CLICK_TASK_QUEUE_NAME = "log-click-task-queue"
 
 redis_client = redis.StrictRedis(REDIS_HOST, REDIS_PORT, db=0)

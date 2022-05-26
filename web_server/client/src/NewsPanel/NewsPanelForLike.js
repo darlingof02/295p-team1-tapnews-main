@@ -117,12 +117,26 @@ class NewsPanelForLike extends React.Component {
     //             });
     //         });
     // }
+    unique (arr) {
+        let len = arr.length
+        for (let i = 0; i < len; i++) {
 
+            for (let j = i + 1; j < len; j++) {
+                if (arr[i].digest === arr[j].digest) {
+                    arr.splice(j, 1)
+                    len-- // 减少循环次数提高性能
+                    j-- // 保证j的值自加后不变
+                }
+            }
+        }
+        return arr
+    }
     renderNews() {
+        var temp=this.state.likelist
+        this.state.news=this.unique(this.state.news)
         console.log(" ----- ")
         console.log(this.state.news)
         console.log(" ----- ")
-        var temp=this.state.likelist
         var news_list = this.state.news.map(function (news) {
             console.log(news.class)
 
