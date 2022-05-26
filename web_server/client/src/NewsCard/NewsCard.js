@@ -1,22 +1,24 @@
 import './NewsCard.css';
 import React from 'react';
 import Auth from '../Auth/Auth';
-import {Button} from "bootstrap";
+// import {Button} from "bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import copy from 'copy-to-clipboard'
+import Button from 'react-bootstrap/Button';
 
 class NewsCard extends React.Component {
     state = {
         value: '',
-        color:"black",
+        color:"light",
         copied: false,
     };
     componentDidMount() {
         if(this.findlike())
-            this.setState({color:"red"})
+            this.setState({color:"warning"})
         else
-            this.setState({color:"black"})
+            this.setState({color:"light"})
     }
     redirectToUrl(url) {
         this.sendClickLog();
@@ -46,6 +48,8 @@ class NewsCard extends React.Component {
             cache: "no-cache"
         });
         fetch(request);
+
+        this.setState({color: "warning"})
     }
     findlike(){
         for (let i = 0; i < this.props.likelist.length; i++) {
@@ -61,12 +65,15 @@ class NewsCard extends React.Component {
 
         return (
             <div>
-                <CopyToClipboard text={this.props.news.url}
+                {/* <CopyToClipboard text={this.props.news.url}
                                  onCopy={() => this.setState({copied: true})}>
                     <button onClick={()=>alert("Successfully copied to clip board")}>Share</button>
-                </CopyToClipboard>
+                </CopyToClipboard> */}
+                <Button variant="info" onClick={()=>{alert("Successfully copied to clip board");copy(this.props.news.url)}}>Share</Button>{' '}
+
                 {/*<button color={this.state.color} onClick={()=>this.like()}>Like</button>*/}
-                <button style={{color:this.state.color}} onClick={()=>this.like()}>Like</button>
+                <Button variant={this.state.color} onClick={()=>{this.like()}}>Like</Button>{' '}
+                {/* <button style={{color:this.state.color}} onClick={()=>this.like()}>Like</button> */}
                 <div className="news-container" onClick={() => this.redirectToUrl(this.props.news.url)}>
                     <div className='row'>
                         <div className='col s4 fill'>
