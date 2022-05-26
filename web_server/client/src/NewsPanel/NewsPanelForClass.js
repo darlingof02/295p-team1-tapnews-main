@@ -20,13 +20,13 @@ class NewsPanelForClass extends React.Component {
 
     componentDidMount() {
         if (Auth.isUserAuthenticated()) {
-            this.loadMoreNews();
+            this.loadClassNews();
         }
 
         // 防抖
 
-        this.loadMoreNews = _.debounce(this.loadMoreNews, 1000);
-        this.loadLikedNews()
+        this.loadMoreNews = _.debounce(this.loadClassNews, 1000);
+        this.loadLike()
         window.addEventListener('scroll', this.handleScroll);
     }
     handleScroll() {
@@ -34,14 +34,14 @@ class NewsPanelForClass extends React.Component {
         if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 50)) {
             // 滚动到了最底部。
             console.log('Loading more news');
-            this.loadMoreNews();
+            this.loadClassNews();
         }
     }
-    loadMoreNews(e) {
+    loadClassNews(e) {
         if (this.state.loadedAll === true) {
             return;
         }
-        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail() + `${this.state.category}/pageNum/` + this.state.pageNum
+        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail() + `/${this.state.category}/pageNum/` + this.state.pageNum
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {
@@ -53,37 +53,13 @@ class NewsPanelForClass extends React.Component {
         fetch(request)
             .then((res) => res.json())
             .then((news) => {
+                console.log("category" + this.state.category)
+                console.log(news)
+                console.log("category" + this.state.category)
+
                 if (!news || news.length === 0) {
                     this.setState({ loadedAll: true });
                 }
-                this.setState({
-                    news: this.state.news ? this.state.news.concat(news) : news,
-                    pageNum: this.state.pageNum + 1
-                });
-            });
-    }
-    loadLikedNews(e) {
-        console.log("did loadlike")
-        if (this.state.loadedAll === true) {
-            return;
-        }
-        console.log("liked User: " + Auth.getEmail())
-        let url = 'http://localhost:3000/news/liked/userId/' + Auth.getEmail() + `/pageNum/` + this.state.pageNum
-        let request = new Request(encodeURI(url), {
-            method: 'GET',
-            headers: {
-                'Authorization': 'bearer ' + Auth.getToken(),
-            },
-            cache: 'no-cache',
-        });
-
-        fetch(request)
-            .then((res) => res.json())
-            .then((news) => {
-                if (!news || news.length === 0) {
-                    this.setState({ loadedAll: true });
-                }
-
                 this.setState({
                     news: this.state.news ? this.state.news.concat(news) : news,
                     pageNum: this.state.pageNum + 1
@@ -93,10 +69,10 @@ class NewsPanelForClass extends React.Component {
 
     renderNews() {
         let category = this.state.category
-        console.log(this.state.news)
+
         var temp=this.state.likelist
         var news_list = this.state.news.map(function (news) {
-            console.log(news.class)
+
             if (news.class == category)
                 return (
                 <a className='list-group-item' key={news.digest} href="#">
@@ -113,6 +89,33 @@ class NewsPanelForClass extends React.Component {
                 </div>
             </div>
         );
+    }
+    loadLike(e) {
+        // if (this.state.loadedAll === true) {
+        //     return;
+        // }
+        let url = 'http://localhost:3000/news/getlike/userId/' + Auth.getEmail() + '/pageNum/' + this.state.pageNum
+        let request = new Request(encodeURI(url), {
+            method: 'GET',
+            headers: {
+                'Authorization': 'bearer ' + Auth.getToken(),
+            },
+            cache: 'no-cache',
+        });
+
+        fetch(request)
+            .then((res) => res.json())
+            .then((list) => {
+                //console.log(list)
+                this.setState({ likelist:list});
+                // if (!news || news.length === 0) {
+                //     this.setState({ loadedAll: true });
+                // }
+                // this.setState({
+                //     news: this.state.news ? this.state.news.concat(news) : news,
+                //     pageNum: this.state.pageNum + 1
+                // });
+            });
     }
 
     render() {

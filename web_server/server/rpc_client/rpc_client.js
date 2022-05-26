@@ -47,6 +47,8 @@ function getSpecialNewsSummariesForUser(user_id, category, page_num, callback) {
         console.log(response);
         callback(response);
     })
+    console.log("getting special news")
+    console.log("!!!!!!!!!!!!!!!!!!!!!!")
 }
 
 function logNewsClickForUser(user_id, news_id) {
@@ -107,4 +109,5 @@ module.exports = {
     getLikedNewsSummariesForUser,
     getRecommendNewsSummariesForUser,
     getLikeForUser,
+    getSpecialNewsSummariesForUser,
 }

@@ -66,6 +66,11 @@ def getLikedNewsSummariesForUser(user_id: str, page_num: str) -> list:
 def getRecommendNewsSummariesForUser(user_id: str, page_num: str) -> list:
     """Get news summary from mongodb"""
     return operations.getRecommendNewsSummariesForUser(user_id, page_num)
+
+@jsonrpc.method('getSpecialNewsSummariesForUser')
+def getSpecialNewsSummariesForUser(user_id: str, category: str, page_num: str) -> list:
+    """Get news summary from mongodb"""
+    return operations.getSpecialNewsSummariesForUser(user_id, category, page_num)
 if __name__ == '__main__':
     app.run(host=SERVER_HOST, port=SERVER_PORT, debug=True)
 

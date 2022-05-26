@@ -87,32 +87,72 @@ const PersonProfile = ()=> {
 
         <div className='ProfileContainer'>
 
-            <div className='ProfileTitle'>
+            <div className='ProfileTitle title'>
                 This is Profile
             </div>
             <div className='ProfileContainer'>
                 <div className = 'ProfileItem'>
                     <div className='ProfileLabel'>
                         <div>Email:</div>
+                    </div>
+                    <div className='ProfileContent'>
+                        <div>{userEmail === undefined || userEmail === "" ? "None Set" : userEmail}</div>
+
+                        {/* <EditModal update={updateEmail} attr={"email"}/> */}
+            
+                    </div>
+                </div>
+                <div className = 'ProfileItem'>
+                    <div className='ProfileLabel'>
                         <div>Birthday:</div>
+                    </div>
+                    <div className='ProfileContent'>
+                        <div>{userBirthday === undefined || userBirthday === "" ? "None Set" : userBirthday}</div>
+
+                        <EditModal update={updateBirth} attr={"birthday"}/>
+            
+                    </div>
+                </div>
+                <div className = 'ProfileItem'>
+                    <div className='ProfileLabel'>
                         <div>Alias:</div>
+                    </div>
+                    <div className='ProfileContent'>
+                        <div>{userAlias === undefined || userAlias ===  "" ? "None Set" : userAlias}</div>
+
+                        <EditModal update={updateAlias} attr={"alias"}/>
+            
+                    </div>
+                </div>
+                <div className = 'ProfileItem'>
+                    <div className='ProfileLabel'>
                         <div>Country:</div>
                     </div>
                     <div className='ProfileContent'>
+                        <div>{userCountry === undefined || userCountry ===  "" ? "None Set" : userCountry}</div>
+
+                        <EditModal update={updateCountry} attr={"country"}/>
+            
+                    </div>
+                </div>
+                
+                    {/* <div className='ProfileContent'>
                         <div>{userEmail === undefined || userEmail === "" ? "None Set" : userEmail}</div>
                         <div>{userBirthday === undefined || userBirthday === "" ? "None Set" : userBirthday}</div>
                         <div>{userAlias === undefined || userAlias ===  "" ? "None Set" : userAlias}</div>
                         <div>{userCountry === undefined || userCountry ===  "" ? "None Set" : userCountry}</div>
-                    </div>
-                    <div className='UpdateButton'>
+                        <div className='UpdateButton'>
                         <EditModal update={updateEmail} attr={"email"}/>
                         <EditModal update={updateBirth} attr={"birthday"}/>
                         <EditModal update={updateAlias} attr={"alias"}/>
                         <EditModal update={updateCountry} attr={"country"}/>
                     </div>
-                </div>      
-            </div>
+                    </div> */}
+                    
 
+
+
+            </div>
         </div>
     )
 }

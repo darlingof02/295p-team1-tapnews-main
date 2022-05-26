@@ -1,6 +1,7 @@
 .ProfileContainer {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .ProfileItem {
@@ -8,6 +9,7 @@
     justify-content: space-between;
     font-size: large;
     align-content: center;
+    flex-direction: column;
     /* margin: 1%,1%,1%, 1%; */
     margin-left: 25%;
     margin-right: 20%;
@@ -15,18 +17,20 @@
 }
 .ProfileLabel{
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    font-size: large;
+    font-size: medium;
+    
 }
 .ProfileContent{
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    font-size: x-large;
+    color: gray;
+    font-weight: bold;
 }
 .UpdateButton{
     display: flex;
-    flex-direction: column;
+
 }
 .ProfileTitle {
     text-align: center;
@@ -34,4 +38,13 @@
 }
 .ProfileTable {
     border-left: 100;
+}
+.title {
+    font-weight: bold;
+    font-style: unset;
+    font-size: xx-large;
+}
+
+.label {
+    color: gray;
 }

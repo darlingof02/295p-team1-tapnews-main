@@ -116,7 +116,7 @@ def getSpecialNewsSummariesForUser(user_id, category, page_num):
         pass
     if True:
         db = mongodb_client.get_db()
-        total_news = list(db[NEWS_TABLE_NAME].find().sort([('publishedAt', -1)]).limit(NEWS_LIMIT))
+        total_news = list(db[NEWS_TABLE_NAME].find({'class':category}).sort([('publishedAt', -1)]).limit(NEWS_LIMIT))
 
         total_news_digests = list(map(lambda x:x['digest'], total_news))
         print(total_news_digests)
