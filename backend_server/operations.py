@@ -153,7 +153,13 @@ def logNewsClickForUser(user_id, news_id):
     # Send log task to machine learing service
     message = {'userId': user_id, 'newsId': news_id,
                'timestamp': str(datetime.utcnow())}
-    click_queue_client.sendMessage(message)
+    global click_queue_client
+    try:
+        click_queue_client.sendMessage(message)
+    except:
+        click_queue_client = CloudAMQPClient(LOG_CLICK_TASK_QUEUE_URL, LOG_CLICK_TASK_QUEUE_NAME)
+        click_queue_client.sendMessage(message)
+
 
 def like(user_id, news_id):
     print("like")
