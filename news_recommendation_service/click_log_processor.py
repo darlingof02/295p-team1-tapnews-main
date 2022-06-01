@@ -79,9 +79,24 @@ def handle_message(msg):
 
 
 def run():
+    global click_queue_client
     while True:
+
+
         if click_queue_client is not None:
-            msg = click_queue_client.getMessage()
+            try:
+                msg = click_queue_client.getMessage()
+            except:
+                print("!!!!!!!!!!!!!!!!!!!!!!!!")
+                print("!!!!!!!!!!!!!!!!!!!!!!!!")
+                print("!!!!!!!!!!!!!!!!!!!!!!!!")
+                print("         眼镜蛇")
+                print("!!!!!!!!!!!!!!!!!!!!!!!!")
+                print("!!!!!!!!!!!!!!!!!!!!!!!!")
+                print("!!!!!!!!!!!!!!!!!!!!!!!!")
+                click_queue_client = CloudAMQPClient(LOG_CLICK_TASK_QUEUE_URL, LOG_CLICK_TASK_QUEUE_NAME)
+                msg = click_queue_client.getMessage()
+
             if msg is not None:
                 try:
                     print("handle_message")
