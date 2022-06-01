@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SignUpForm from './SignUpForm';
+import { IP } from '../const';
 
 class SignUpPage extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class SignUpPage extends Component {
             return;
         }
 
-        fetch('http://localhost:3000/auth/signup', {
+        fetch(`http://${IP}:3000/auth/signup`, {
             method: 'POST',
             cache: 'no-cache',
             headers: {

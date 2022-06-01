@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from '../Auth/Auth';
 import LoginForm from './LoginForm';
 import PropTypes from 'prop-types'
+import { IP } from '../const';
 class LoginPage extends Component {
 
     constructor(props, context) {
@@ -26,7 +27,7 @@ class LoginPage extends Component {
         console.log('password:', password);
 
         //post login data
-        fetch('http://localhost:3000/auth/login', {
+        fetch(`http://${IP}:3000/auth/login`, {
             method: 'POST',
             cache: "no-cache",
             headers: {
