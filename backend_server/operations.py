@@ -214,7 +214,8 @@ def getLikedNewsSummariesForUser(user_id, page_num):
         db = mongodb_client.get_db()
         col = db["likes"];
         entry=col.find({ "userId": user_id})
-        #print(entry[0])
+        if (len(list(entry)) == 0):
+            sliced_likes = []
         for x in entry:
             sliced_likes=x['newsId']
 
