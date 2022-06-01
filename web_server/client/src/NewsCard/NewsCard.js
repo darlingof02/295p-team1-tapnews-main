@@ -7,6 +7,8 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import copy from 'copy-to-clipboard'
 import Button from 'react-bootstrap/Button';
+import { IP } from '../const';
+
 
 class NewsCard extends React.Component {
     state = {
@@ -25,7 +27,7 @@ class NewsCard extends React.Component {
         window.open(url, '_blank');
     }
     sendClickLog() {
-        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail()
+        let url = `http://${IP}:3000/news/userId/` + Auth.getEmail()
             + '/newsId/' + this.props.news.digest;
         let request = new Request(encodeURI(url), {
             method: 'POST',
@@ -38,7 +40,7 @@ class NewsCard extends React.Component {
         fetch(request);
     }
     like(){
-        let url = 'http://localhost:3000/news/like/' + Auth.getEmail()
+        let url = `http://${IP}:3000/news/like/` + Auth.getEmail()
             + '/newsId/' + this.props.news.digest;
         let request = new Request(encodeURI(url), {
             method: 'POST',

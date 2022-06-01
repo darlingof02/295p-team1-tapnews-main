@@ -4,6 +4,7 @@ import Auth from '../Auth/Auth';
 // import { IP } from '../const';
 import EditModal from './EditModal'
 import "./PersonProfile.css"
+import { IP } from '../const';
 
 
 const PersonProfile = ()=> {
@@ -28,7 +29,7 @@ const PersonProfile = ()=> {
          console.log(userAlias)
      }
     const loadUserInfo = () => {
-        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail()
+        let url = `http://${IP}:3000/news/userId/` + Auth.getEmail()
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {

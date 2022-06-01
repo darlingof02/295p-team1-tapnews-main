@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import {Modal, Button, Form} from 'react-bootstrap'
 import Auth from '../Auth/Auth';
+import { IP } from '../const';
 
 
 const EditModal = ({update, attr}) => {
@@ -15,7 +16,7 @@ const EditModal = ({update, attr}) => {
     
 
     const updateTest = (user_info, attr) => {
-        let url = 'http://localhost:3000/news/update/' + Auth.getEmail()
+        let url = `http://${IP}:3000/news/update/` + Auth.getEmail()
         
         console.log("hhhh",user_info, attr)
         let request = new Request(encodeURI(url), {

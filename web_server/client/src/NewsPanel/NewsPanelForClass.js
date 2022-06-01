@@ -3,7 +3,7 @@ import _ from 'lodash';
 import React from 'react';
 import Auth from '../Auth/Auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { IP } from '../const';
 
 import NewsCard from '../NewsCard/NewsCard';
 import { Link, withRouter} from 'react-router-dom';
@@ -41,7 +41,7 @@ class NewsPanelForClass extends React.Component {
         if (this.state.loadedAll === true) {
             return;
         }
-        let url = 'http://localhost:3000/news/userId/' + Auth.getEmail() + `/${this.state.category}/pageNum/` + this.state.pageNum
+        let url = `http://${IP}:3000/news/userId/` + Auth.getEmail() + `/${this.state.category}/pageNum/` + this.state.pageNum
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {
@@ -94,7 +94,7 @@ class NewsPanelForClass extends React.Component {
         // if (this.state.loadedAll === true) {
         //     return;
         // }
-        let url = 'http://localhost:3000/news/getlike/userId/' + Auth.getEmail() + '/pageNum/' + this.state.pageNum
+        let url = `http://${IP}:3000/news/getlike/userId/` + Auth.getEmail() + '/pageNum/' + this.state.pageNum
         let request = new Request(encodeURI(url), {
             method: 'GET',
             headers: {
