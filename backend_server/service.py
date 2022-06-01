@@ -33,6 +33,9 @@ def getNews() -> list:
 @jsonrpc.method('getNewsSummariesForUser')
 def getNewsSummariesForUser(user_id: str, page_num: str) -> list:
     """Get news summary from mongodb"""
+    # print("xyn bug")
+    # print(user_id)
+    # print("xyn bug")
     return operations.getNewsSummariesForUser(user_id, page_num)
 @jsonrpc.method('logNewsClickForUser')
 def logNewsClickForUser(user_id:str, news_id:str) -> None:
