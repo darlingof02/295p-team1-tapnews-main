@@ -2,6 +2,7 @@ import React from 'react';
 import Auth from '../Auth/Auth';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Base.css'
 
 // import './Base.css';
 import { Link, withRouter } from 'react-router-dom';
@@ -14,13 +15,23 @@ import { DropdownButton, Dropdown, NavDropdown } from 'react-bootstrap';
 
 
 const Base = function ({ children, history }) {
-    const categories = [
-        "Sports", 
-        "Technology",
-        "World",
-        "Politics & Government",
-        "Media"
-    ]
+    const categories = ["Colleges & Schools",
+    "Enviormental",
+    "World",
+    "Entertainment",
+    "Media",
+    "Politics & Government",
+    "Regional News",
+    "Religion",
+    "Sports",
+    "Technology",
+    "Traffic",
+    "Weather",
+    "Economic & Corp",
+    "Advertisements",
+    "Crime",
+    "Magazine",
+    "Other"]
 
 
 
@@ -29,7 +40,7 @@ const Base = function ({ children, history }) {
 
         <Navbar bg="primary" variant="dark">
             <Container>
-                <Navbar.Brand href="#home">Navigation</Navbar.Brand>
+                <Navbar.Brand>TapNews</Navbar.Brand>
                 {Auth.isUserAuthenticated() ? (
                     <Nav className="me-auto">
                         <Nav.Link href="/home">Home</Nav.Link>
@@ -39,13 +50,15 @@ const Base = function ({ children, history }) {
                     </Nav>) : null
                 }
                 {Auth.isUserAuthenticated() ? (
+
                     <Nav className="me-auto">
-                    <NavDropdown title="Category" id="basic-nav-dropdown">
+                    <NavDropdown title="Category" id="basic-nav-dropdown" >
                         {categories.map((category)=>
                             <NavDropdown.Item key={category} href={"/categories/"+category}>{category}</NavDropdown.Item>
                         )}
                     </NavDropdown>
                     </Nav>
+
                 ) : null
                 }
                     
@@ -55,8 +68,8 @@ const Base = function ({ children, history }) {
                         <Navbar.Text>
                             Signed in as: {Auth.getEmail()}
                         </Navbar.Text>
-                        <Nav.Link href="/" onClick={() => {
-                                        Auth.deauthenticateUser(() => this.props.history.push("/logout"));
+                        <Nav.Link href="/login" onClick={() => {
+                                       Auth.logout()
                                     }}>Log out</Nav.Link>
                     </Nav>) : (
                         <Nav>

@@ -214,8 +214,9 @@ def getLikedNewsSummariesForUser(user_id, page_num):
         db = mongodb_client.get_db()
         col = db["likes"];
         entry=col.find({ "userId": user_id})
-        if (len(list(entry)) == 0):
-            sliced_likes = []
+
+
+        sliced_likes = []
         for x in entry:
             sliced_likes=x['newsId']
 
@@ -237,6 +238,8 @@ def getLikedNewsSummariesForUser(user_id, page_num):
 
         col = db["likes"];
         entry=col.find({ "userId": user_id})
+
+        sliced_likes = []
         for x in entry:
             sliced_likes=x['newsId']
         likednews=[]
@@ -291,10 +294,30 @@ def getRecommendNewsSummariesForUser(user_id, page_num):
         sliced_news = list(db[NEWS_TABLE_NAME].find({'digest': {'$in': sliced_news_digests}}))
         col = db["user_preference_model"]
         entry=col.find({ "userId": user_id})
+        number = []
         for x in entry:
             number=x['preference']
-        a = sorted(number.items(), key=lambda x: x[1], reverse=True)
-        preference_class = [a[0][0], a[1][0]]
+        if(len(number) > 0):
+            a = sorted(number.items(), key=lambda x: x[1], reverse=True)
+            preference_class = [a[0][0], a[1][0]]
+        else:
+            preference_class = ["Colleges & Schools",
+                "Enviormental",
+                "World",
+                "Entertainment",
+                "Media",
+                "Politics & Government",
+                "Regional News",
+                "Religion",
+                "Sports",
+                "Technology",
+                "Traffic",
+                "Weather",
+                "Economic & Corp",
+                "Advertisements",
+                "Crime",
+                "Magazine",
+                "Other"]
         prenews = []
         for news in sliced_news:
             if news['class'] in preference_class:
@@ -312,16 +335,32 @@ def getRecommendNewsSummariesForUser(user_id, page_num):
 
         col = db["user_preference_model"]
         entry=col.find({ "userId": user_id})
+        number = []
         for x in entry:
             number=x['preference']
-        a = sorted(number.items(), key=lambda x: x[1], reverse=True)
-
-        preference_class = [a[0][0], a[1][0]]
-        print(preference_class)                
-
-        prenews=[]
-        
-        for news in total_news:
+        if (len(number) > 0):
+            a = sorted(number.items(), key=lambda x: x[1], reverse=True)
+            preference_class = [a[0][0], a[1][0]]
+        else:
+            preference_class = ["Colleges & Schools",
+                                "Enviormental",
+                                "World",
+                                "Entertainment",
+                                "Media",
+                                "Politics & Government",
+                                "Regional News",
+                                "Religion",
+                                "Sports",
+                                "Technology",
+                                "Traffic",
+                                "Weather",
+                                "Economic & Corp",
+                                "Advertisements",
+                                "Crime",
+                                "Magazine",
+                                "Other"]
+        prenews = []
+        for news in sliced_news:
             if news['class'] in preference_class:
                 prenews.append(news)
         sliced_news = total_news[begin_index:end_index]

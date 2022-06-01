@@ -18,6 +18,14 @@ class Auth {
     static isUserAuthenticated() {
         return localStorage.getItem('token') !== null;
     }
+
+    /**
+     * remove token and email when logout
+     */
+    static logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
+    }
     /**
     * Deauthenticate a user. Remove token and email from Local Storage.
     *
