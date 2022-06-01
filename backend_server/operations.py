@@ -177,6 +177,7 @@ def like(user_id, news_id):
                 newlist=x['newsId']+[news_id]
             else:
                 newlist=x['newsId']
+                newlist.remove(news_id)
             col.update_one({"userId": user_id},{"$set":{'newsId':newlist}})
     else:
         col.insert_one(message)

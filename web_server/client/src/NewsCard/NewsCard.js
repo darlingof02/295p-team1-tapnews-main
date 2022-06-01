@@ -50,8 +50,10 @@ class NewsCard extends React.Component {
             cache: "no-cache"
         });
         fetch(request);
-
-        this.setState({color: "warning"})
+        if(this.state.color==="warning")
+            this.setState({color: "light"})
+        else
+            this.setState({color: "warning"})
     }
     findlike(){
         for (let i = 0; i < this.props.likelist.length; i++) {
