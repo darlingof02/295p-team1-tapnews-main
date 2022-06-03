@@ -43,7 +43,7 @@ const Base = function ({ children, history }) {
                 <Navbar.Brand>TapNews</Navbar.Brand>
                 {Auth.isUserAuthenticated() ? (
                     <Nav className="me-auto">
-                        <Nav.Link href="/home">Home</Nav.Link>
+                        <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/personal">Profile</Nav.Link>
                         <Nav.Link href="/favorites">Likes</Nav.Link>
                         <Nav.Link href="/recommend">Recommend</Nav.Link>

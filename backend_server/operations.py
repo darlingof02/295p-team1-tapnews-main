@@ -120,8 +120,7 @@ def getSpecialNewsSummariesForUser(user_id, category, page_num):
 
         total_news_digests = list(map(lambda x:x['digest'], total_news))
         print(total_news_digests)
-        redis_client.set(user_id, pickle.dumps(total_news_digests))
-        redis_client.expire(user_id, USER_NEWS_TIMEOUT_IN_SECONDS)
+
 
         sliced_news = total_news[begin_index:end_index]
 
