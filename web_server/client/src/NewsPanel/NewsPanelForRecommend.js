@@ -21,10 +21,10 @@ class NewsPanelForRecommend extends React.Component {
     componentDidMount() {
         if (Auth.isUserAuthenticated()) {
             this.loadLikedNews();
+            this.loadLike();
         }
 
         // 防抖
-        this.loadLike();
         this.loadLikedNews = _.debounce(this.loadLikedNews, 1000);
         window.addEventListener('scroll', this.handleScroll);
     }

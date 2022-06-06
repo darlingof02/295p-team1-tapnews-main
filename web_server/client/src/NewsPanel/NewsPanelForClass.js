@@ -21,12 +21,12 @@ class NewsPanelForClass extends React.Component {
     componentDidMount() {
         if (Auth.isUserAuthenticated()) {
             this.loadClassNews();
+            this.loadLike()
         }
 
         // 防抖
 
         this.loadMoreNews = _.debounce(this.loadClassNews, 1000);
-        this.loadLike()
         window.addEventListener('scroll', this.handleScroll);
     }
     handleScroll() {

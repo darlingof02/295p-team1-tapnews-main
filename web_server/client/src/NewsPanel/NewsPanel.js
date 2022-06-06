@@ -19,9 +19,9 @@ class NewsPanel extends React.Component {
     componentDidMount() {
         if (Auth.isUserAuthenticated()) {
             this.loadMoreNews();
+            this.loadLike();
         }
         // 防抖
-        this.loadLike();
         this.loadMoreNews = _.debounce(this.loadMoreNews, 1000);
         window.addEventListener('scroll', this.handleScroll);
     }

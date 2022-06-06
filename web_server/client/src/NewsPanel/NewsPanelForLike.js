@@ -22,11 +22,11 @@ class NewsPanelForLike extends React.Component {
     componentDidMount() {
         if (Auth.isUserAuthenticated()) {
             this.loadLikedNews();
+            this.loadLike()
         }
         console.log("did redirect")
         // 防抖
         this.loadMoreNews = _.debounce(this.loadLikedNews, 1000);
-        this.loadLike()
         window.addEventListener('scroll', this.handleScroll);
     }
     handleScroll() {
